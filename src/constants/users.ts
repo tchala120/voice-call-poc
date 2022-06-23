@@ -1,4 +1,4 @@
-interface UserMetadata {
+export interface UserMetadata {
   username: string
   password: string
 }
