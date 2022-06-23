@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, useEffect, useState } from 'react'
+import dayjs from 'dayjs'
 
-function App() {
+const App: FC = () => {
+  const [seconds, setSeconds] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds((seconds) => seconds + 1)
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>Call time: {dayjs.duration(seconds * 1000).format('mm:ss')}</p>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
