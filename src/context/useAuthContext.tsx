@@ -3,33 +3,38 @@ import { useEffectOnce } from 'react-use'
 
 import { clearLocalStorage, store } from 'services/localStorage'
 
+import { findUserByUsername } from 'helpers/utils'
+
+import type { UserMetadata } from 'constants/users'
 import type { FCWithChildren } from 'types'
 
+export type User = Omit<UserMetadata, 'password'>
+
 interface AuthContextData {
-  username?: string | null
-  signIn: (username: string) => void
+  user?: User
+  signIn: (user: User) => void
   signOut: VoidFunction
 }
 
 const AuthContext = createContext<any>(null)
 
 export const AuthProvider: FCWithChildren = ({ children }) => {
-  const [username, setUsername] = useState<string | null>()
+  const [user, setUser] = useState<User>()
 
-  const signIn = (username: string) => {
-    setUsername(username)
+  const signIn = (user: User) => {
+    setUser(user)
 
-    store.username.set(username)
+    store.username.set(user.username)
   }
 
   const signOut = () => {
-    setUsername(undefined)
+    setUser(undefined)
 
     clearLocalStorage()
   }
 
   const value: AuthContextData = {
-    username,
+    user,
     signIn,
     signOut,
   }
@@ -37,7 +42,9 @@ export const AuthProvider: FCWithChildren = ({ children }) => {
   useEffectOnce(() => {
     const username = store.username.get()
 
-    setUsername(username)
+    const user = findUserByUsername(username)
+
+    setUser(user)
   })
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
