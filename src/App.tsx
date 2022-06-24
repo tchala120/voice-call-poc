@@ -1,5 +1,7 @@
 import type { FC } from 'react'
 
+import { ConfigProvider } from 'antd'
+
 import PageRouter from 'setup/PageRouter'
 
 import setupLocalStorage from 'services/localStorage'
@@ -10,9 +12,11 @@ setupLocalStorage()
 
 const App: FC = () => {
   return (
-    <AuthProvider>
-      <PageRouter />
-    </AuthProvider>
+    <ConfigProvider componentSize="large">
+      <AuthProvider>
+        <PageRouter />
+      </AuthProvider>
+    </ConfigProvider>
   )
 }
 
