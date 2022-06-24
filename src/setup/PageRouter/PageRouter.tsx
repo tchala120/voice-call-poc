@@ -11,7 +11,7 @@ import {
 import AuthPage from 'pages/AuthPage'
 import RoomPage from 'pages/RoomPage'
 
-import useAuthContext from 'context/useAuthContext'
+import useAuthContext, { User } from 'context/useAuthContext'
 
 import type { RouteKey } from './types'
 
@@ -24,18 +24,18 @@ export const paths: Record<RouteKey, string> = {
 const PageRouter = () => {
   const auth = useAuthContext()
 
-  const redirectTo = auth.username == null ? paths.auth : paths.room
+  const redirectTo = auth.user == null ? paths.auth : paths.room
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path={paths.root} element={<Navigate to={redirectTo} />} />
 
-        <Route element={<SignInRoute username={auth.username} />}>
+        <Route element={<SignInRoute user={auth.user} />}>
           <Route path={paths.auth} element={<AuthPage />} />
         </Route>
 
-        <Route element={<AuthenticatedRoute username={auth.username} />}>
+        <Route element={<AuthenticatedRoute user={auth.user} />}>
           <Route path={paths.room} element={<RoomPage />} />
         </Route>
       </Routes>
@@ -46,19 +46,19 @@ const PageRouter = () => {
 export default PageRouter
 
 interface UserData {
-  username?: string | null
+  user?: User
 }
 
-const AuthenticatedRoute: FC<UserData> = ({ username }) => {
-  if (username == null) {
+const AuthenticatedRoute: FC<UserData> = ({ user }) => {
+  if (user == null) {
     return <Navigate to={paths.auth} />
   }
 
   return <Outlet />
 }
 
-const SignInRoute: FC<UserData> = ({ username }) => {
-  if (username != null) {
+const SignInRoute: FC<UserData> = ({ user }) => {
+  if (user != null) {
     return <Navigate to={paths.room} />
   }
 
