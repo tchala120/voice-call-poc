@@ -43,11 +43,23 @@ const AudioUserPlayer: FC<AudioUserPlayerProps> = ({ user }) => {
             <FontAwesomeIcon className="fa-microphone-slash" />
           )}
 
-          <strong>{userMetadata ? userMetadata.username : 'You'}</strong>
+          <strong>{renderDisplayName()}</strong>
         </Space>
       </UserInformationContainer>
     </AudioUserPlayerContainer>
   )
+
+  function renderDisplayName() {
+    if (user == null) {
+      return 'You'
+    }
+
+    if (userMetadata != null) {
+      return userMetadata.username
+    }
+
+    return 'Guest'
+  }
 }
 
 export default AudioUserPlayer
