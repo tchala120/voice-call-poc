@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 
 import { Button, Form, Input, message } from 'antd'
+import omit from 'lodash/omit'
 
 import Center from 'components/Center'
 
@@ -18,10 +19,12 @@ const AuthPage: FC = () => {
       <Form
         {...baseFormProps}
         onFinish={(values) => {
-          const isUserExist = checkLoginUserInformation(values)
+          const user = checkLoginUserInformation(values)
 
-          if (isUserExist) {
-            auth.signIn(values.username)
+          if (user != null) {
+            const newUser = omit(user, 'password')
+
+            auth.signIn(newUser)
 
             return
           }
