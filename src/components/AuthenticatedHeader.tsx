@@ -3,6 +3,8 @@ import type { FC } from 'react'
 import styled from '@emotion/styled'
 import { Dropdown, Layout, Menu, Space } from 'antd'
 
+import FontAwesomeIcon from 'components/FontAwesomeIcon'
+
 import useAuthContext from 'context/useAuthContext'
 
 const AuthenticatedHeader: FC = () => {
@@ -14,6 +16,7 @@ const AuthenticatedHeader: FC = () => {
       items={[
         {
           key: '1',
+          icon: <FontAwesomeIcon className="fa-arrow-right-from-bracket" />,
           label: <span onClick={auth.signOut}>Log out</span>,
         },
       ]}
