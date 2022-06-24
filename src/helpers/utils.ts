@@ -1,6 +1,7 @@
 import users from 'constants/users'
 
 import type { UserMetadata } from 'constants/users'
+import type { UID } from 'agora-rtc-sdk-ng'
 
 export const checkLoginUserInformation = (userInput: UserMetadata) => {
   const user = users.find(
@@ -10,6 +11,9 @@ export const checkLoginUserInformation = (userInput: UserMetadata) => {
 
   return user
 }
+
+export const findUserByUserID = (userID?: UID) =>
+  users.find((user) => user.userID === userID)
 
 export const findUserByUsername = (username: string | null) =>
   users.find((user) => user.username === username)
