@@ -27,6 +27,7 @@ export default PageLayout
 
 const PageLayoutContainer = styled(Layout)`
   .ant-layout-content {
+    position: relative;
     padding: 50px;
     min-height: calc(100vh - 64px);
   }
