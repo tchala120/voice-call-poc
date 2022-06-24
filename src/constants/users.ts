@@ -61,6 +61,16 @@ const users: UserMetadata[] = [
     },
     password: '1234567890',
   },
+  {
+    userID: 6,
+    username: 'thetoon',
+    room: {
+      channel: 'room_a',
+      token:
+        '0066bcb6676562e42b6a4f5ed71591a83c5IAApshQatuHpjumHsiNkWfmLQgm8UEwAhyu6aamzUG1LYoZClsgAAAAAEABGROOedKe2YgEAAQB0p7Zi',
+    },
+    password: '1234567890',
+  },
 ]
 
 export default users
