@@ -88,11 +88,16 @@ const useVoiceCall = (client: IAgoraRTCClient): UseVoiceCallResult => {
       setUsers(Array.from(client.remoteUsers))
     }
 
+    const handleUserInfoUpdated = () => {
+      setUsers(Array.from(client.remoteUsers))
+    }
+
     client.on('connection-state-change', handleConnectionState)
     client.on('user-published', handleUserPublished)
     client.on('user-unpublished', handleUserUnpublished)
     client.on('user-joined', handleUserJoined)
     client.on('user-left', handleUserLeft)
+    client.on('user-info-updated', handleUserInfoUpdated)
 
     return () => {
       client.off('connection-state-change', handleConnectionState)
@@ -100,6 +105,7 @@ const useVoiceCall = (client: IAgoraRTCClient): UseVoiceCallResult => {
       client.off('user-unpublished', handleUserUnpublished)
       client.off('user-joined', handleUserJoined)
       client.off('user-left', handleUserLeft)
+      client.off('user-info-updated', handleUserInfoUpdated)
     }
   })
 
