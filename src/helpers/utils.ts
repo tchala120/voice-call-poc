@@ -8,9 +8,11 @@ export const checkLoginUserInformation = (userInput: UserMetadata) => {
       username === userInput.username && password === userInput.password
   )
 
-  if (user == null) {
-    return false
-  }
-
-  return true
+  return user
 }
+
+export const findUserByUsername = (username: string | null) =>
+  users.find((user) => user.username === username)
+
+export const getUserIDByUsername = (username: string | null) =>
+  users.find((user) => user.username === username)?.userID
