@@ -8,6 +8,8 @@ import AgoraRTC, {
 } from 'agora-rtc-sdk-ng'
 import { notification } from 'antd'
 
+const userJoinedSound = require('sound/user_joined.mp3')
+
 interface UseVoiceCallResult {
   users: IAgoraRTCRemoteUser[]
   connectionState: ConnectionState
@@ -74,7 +76,13 @@ const useVoiceCall = (client: IAgoraRTCClient): UseVoiceCallResult => {
       setUsers(Array.from(client.remoteUsers))
     }
 
-    const handleUserJoined = () => {
+    const handleUserJoined = (user: IAgoraRTCRemoteUser) => {
+      if (client.uid !== user.uid) {
+        const audio = new Audio(userJoinedSound)
+
+        audio.play()
+      }
+
       setUsers(Array.from(client.remoteUsers))
     }
 
