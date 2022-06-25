@@ -8,7 +8,7 @@ import AgoraRTC, {
 } from 'agora-rtc-sdk-ng'
 import { notification } from 'antd'
 
-const userJoinedSound = require('sound/user_joined.mp3')
+const userJoinedSound = require('assets/sounds/user_joined.mp3')
 
 interface UseVoiceCallResult {
   users: IAgoraRTCRemoteUser[]
