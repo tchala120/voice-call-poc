@@ -17,6 +17,3 @@ export const findUserByUserID = (userID?: UID) =>
 
 export const findUserByUsername = (username: string | null) =>
   users.find((user) => user.username === username)
-
-export const getUserIDByUsername = (username: string | null) =>
-  users.find((user) => user.username === username)?.userID
