@@ -17,7 +17,7 @@ const users: UserMetadata[] = [
     room: {
       channel: 'room_a',
       token:
-        '0066bcb6676562e42b6a4f5ed71591a83c5IAApshQatuHpjumHsiNkWfmLQgm8UEwAhyu6aamzUG1LYoZClsgAAAAAEABGROOedKe2YgEAAQB0p7Zi',
+        '0066bcb6676562e42b6a4f5ed71591a83c5IADm7PWe964yEnSxWECX7BVZwdphp4hFp8fTl4aLmzDjU4ZClsgAAAAAEABGROOeYQa4YgEAAQBgBrhi',
     },
     password: '1234567890',
   },
@@ -67,7 +67,7 @@ const users: UserMetadata[] = [
     room: {
       channel: 'room_a',
       token:
-        '0066bcb6676562e42b6a4f5ed71591a83c5IAApshQatuHpjumHsiNkWfmLQgm8UEwAhyu6aamzUG1LYoZClsgAAAAAEABGROOedKe2YgEAAQB0p7Zi',
+        '0066bcb6676562e42b6a4f5ed71591a83c5IADm7PWe964yEnSxWECX7BVZwdphp4hFp8fTl4aLmzDjU4ZClsgAAAAAEABGROOeYQa4YgEAAQBgBrhi',
     },
     password: '1234567890',
   },
