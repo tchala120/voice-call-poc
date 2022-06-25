@@ -1,5 +1,6 @@
-import { FC, useState } from 'react'
+import type { FC } from 'react'
 
+import { useState } from 'react'
 import { Button, Col, message, Row } from 'antd'
 import AgoraRTC from 'agora-rtc-sdk-ng'
 
@@ -44,6 +45,13 @@ const RoomPage: FC = () => {
         <Button
           type="primary"
           onClick={() => {
+            if (appID == null) {
+              message.error(
+                'Application ID is required. Try to check the env about APP_ID before start the project'
+              )
+              return
+            }
+
             if (room?.channel == null || room?.token == null) {
               message
                 .error('You cannot join the call please try to sign in again')
