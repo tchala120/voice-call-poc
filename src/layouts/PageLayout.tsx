@@ -31,4 +31,12 @@ const PageLayoutContainer = styled(Layout)`
     padding: 50px;
     min-height: calc(100vh - 64px);
   }
+
+  .ant-layout-sider {
+    flex: 0 0 220px !important;
+    max-width: 220px !important;
+    min-width: 220px !important;
+    width: 220px !important;
+    position: relative;
+  }
 `
