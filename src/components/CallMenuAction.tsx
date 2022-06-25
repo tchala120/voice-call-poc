@@ -5,7 +5,8 @@ import styled from '@emotion/styled'
 import { Button, Space, Tooltip } from 'antd'
 
 import FontAwesomeIcon from 'components/FontAwesomeIcon'
-import { findUserByUserID } from 'helpers/utils'
+
+import useAuthContext from 'context/useAuthContext'
 
 interface CallMenuActionProps {
   isMuted?: boolean
@@ -20,14 +21,15 @@ const CallMenuAction: FC<CallMenuActionProps> = ({
   onToggleMicrophone,
   onLeaveChannel,
 }) => {
-  const user = findUserByUserID(uid)
+  const auth = useAuthContext()
+  const authUser = auth.user
 
   const microphoneIcon = isMuted ? 'fa-microphone-slash' : 'fa-microphone'
 
   return (
     <CallMenuActionContainer>
       <Space size="large">
-        <span>{user?.username}</span>
+        <span>{authUser?.username || 'Guest'}</span>
 
         <Space>
           <Tooltip title={isMuted ? 'Click to unmute' : 'Click to mute'}>
