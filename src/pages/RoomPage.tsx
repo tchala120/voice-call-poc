@@ -4,8 +4,6 @@ import { useState } from 'react'
 import { Button, Col, message, Row } from 'antd'
 import AgoraRTC from 'agora-rtc-sdk-ng'
 
-import useAuthContext from 'context/useAuthContext'
-
 import AudioUserPlayer from 'components/AudioUserPlayer'
 import CallMenuAction from 'components/CallMenuAction'
 
@@ -13,11 +11,13 @@ import PageLayout from 'layouts/PageLayout'
 
 import useVoiceCall from 'hooks/useVoiceCall'
 
-import { getUserIDByUsername } from 'helpers/utils'
-
-import { clearLocalStorage, store } from 'services/localStorage'
+import useAuthContext from 'context/useAuthContext'
 
 import { appID } from 'constants/agora'
+
+import { clearLocalStorage } from 'services/localStorage'
+
+import useGenerateRTCToken from 'api/useGenerateRTCToken'
 
 const client = AgoraRTC.createClient({
   codec: 'vp8',
@@ -29,7 +29,25 @@ client.enableAudioVolumeIndicator()
 const RoomPage: FC = () => {
   const auth = useAuthContext()
   const authUser = auth.user
-  const room = authUser?.room
+  const room = authUser?.room as string
+
+  const { isLoading, mutate } = useGenerateRTCToken({
+    onSuccess({ data }) {
+      const { token } = data
+
+      if (appID == null) {
+        message.error(
+          'Application ID is required. Try to check the env about APP_ID before start the project'
+        )
+        return
+      }
+
+      join(appID, room, token, authUser?.userID)
+    },
+    onError(error) {
+      message.error(error.message).then(clearLocalStorage)
+    },
+  })
 
   const { users, connectionState, localAudioTrack, join, leave } =
     useVoiceCall(client)
@@ -37,31 +55,19 @@ const RoomPage: FC = () => {
   const [isMuted, setIsMuted] = useState(localAudioTrack?.muted)
 
   const isJoined = connectionState === 'CONNECTED'
-  const userID = getUserIDByUsername(store.username.get())
 
   return (
     <PageLayout>
       {!isJoined && (
         <Button
           type="primary"
-          onClick={() => {
-            if (appID == null) {
-              message.error(
-                'Application ID is required. Try to check the env about APP_ID before start the project'
-              )
-              return
-            }
-
-            if (room?.channel == null || room?.token == null) {
-              message
-                .error('You cannot join the call please try to sign in again')
-                .then(clearLocalStorage)
-
-              return
-            }
-
-            join(appID, room.channel, room.token, userID)
-          }}
+          loading={isLoading}
+          onClick={() =>
+            mutate({
+              room,
+              uid: authUser?.userID,
+            })
+          }
         >
           Join Room
         </Button>
