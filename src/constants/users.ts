@@ -38,8 +38,8 @@ const users: UserMetadata[] = [
   },
   {
     userID: 6,
-    username: 'thetoon',
-    room: 'room_a',
+    username: 'ombeleti',
+    room: 'room_f',
     password: '1234567890',
   },
 ]
